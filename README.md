@@ -5,7 +5,7 @@
 
 Run All Using - 
 
-docker-compose up
+sudo docker-compose up
 
 
 ## NextJs project run
