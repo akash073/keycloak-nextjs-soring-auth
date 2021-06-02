@@ -113,13 +113,15 @@ public class KeycloakSecurityConfig extends KeycloakWebSecurityConfigurerAdapter
                 .csrf().disable() //
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) //
                 .and() //
-
+                 .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler())
+            .and()
                 .authorizeRequests() .antMatchers( "/favicon.ico").permitAll();
 
         /*expressionInterceptUrlRegistry = expressionInterceptUrlRegistry
                 .antMatchers("/iam/accounts/**")
                 .hasAnyRole("MANAGER","ACTOR");*/
-      //  expressionInterceptUrlRegistry = expressionInterceptUrlRegistry.antMatchers("/iam/accounts/actor/*").hasRole("ACTOR");
+       expressionInterceptUrlRegistry = expressionInterceptUrlRegistry.antMatchers("/student/*").hasRole("STUDENT");
+       expressionInterceptUrlRegistry = expressionInterceptUrlRegistry.antMatchers("/teacher/*").hasRole("TEACHER");
 
         expressionInterceptUrlRegistry.anyRequest().authenticated();
     }
@@ -159,6 +161,10 @@ public class KeycloakSecurityConfig extends KeycloakWebSecurityConfigurerAdapter
         return registrationBean;
     }
 
+    @Bean
+    public AuthenticationEntryPoint authenticationEntryPoint(){
+        return new CustomAuthenticationEntryPoint();
+    }
     @Bean
     @Override
     @ConditionalOnMissingBean(HttpSessionManager.class)

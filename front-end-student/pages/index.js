@@ -61,18 +61,29 @@ export default function Home() {
         .then(res => {
           console.log(res);
         })
-        .catch(error => console.log("Error occured " + error))
+        .catch(error => {
+          alert('You are not authorize to view the content')
+          console.log("Error occured " + error)
+        }
+        )
   }
 
   return <>
-    {!session && <>
-      Not signed in <br/>
+    {!session &&
+    <>
+
+      <h2>Student sign in</h2>
+      <br/>
       <button onClick={() => signIn()}>Sign in</button>
-    </>}
-    {session && <>
+    </>
+
+    }
+    {session &&
+
+    <>
       Signed in as {session.user.email} {JSON.stringify(session)}<br/>
-      {/*<button onClick={() => signOut({ callbackUrl: `/api/auth/signout?csrf=true` })}>Sign out</button>
-      */}<button onClick={logOut}>Sign out</button>
+
+      <button onClick={logOut}>Sign out</button>
 
       <button onClick={getStudentData}>Get student data</button>
     </>}

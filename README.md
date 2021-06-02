@@ -1,5 +1,19 @@
 # keycloak-nextjs-spring-auth
 
+
+# Run all docker files
+
+Run All Using - 
+
+docker-compose up
+
+
+## NextJs project run
+Go to directory and run
+
+npm run dev
+
+
 ## Spring Boot run
 mvn spring-boot:run
 
