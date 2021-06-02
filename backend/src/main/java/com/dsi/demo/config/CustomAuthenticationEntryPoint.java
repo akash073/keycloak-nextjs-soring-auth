@@ -16,22 +16,15 @@ import java.nio.charset.StandardCharsets;
 
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
-    /* @Bean
-    public AuthenticationEntryPoint authenticationEntryPoint(){
-        return new CustomAuthenticationEntryPoint();
-    }*/
-
     @Override
     public void commence(HttpServletRequest req, HttpServletResponse res, AuthenticationException authException) throws IOException, ServletException {
         res.setContentType("application/json;charset=UTF-8");
         res.setStatus(401);
-
         String message = "You are not authorize to view the content!";
         HttpStatus httpStatus  = HttpStatus.UNAUTHORIZED;
         ErrorResponse errorResponse = new ErrorResponse(httpStatus,message);
         Gson gson = new GsonBuilder().serializeNulls().create();
         String jsonResponse = gson.toJson(errorResponse);
-
         res.getWriter().write(jsonResponse);
     }
 }
