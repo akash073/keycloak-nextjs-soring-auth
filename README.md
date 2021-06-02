@@ -1,0 +1,1 @@
+# keycloak-nextjs-spring-auth
