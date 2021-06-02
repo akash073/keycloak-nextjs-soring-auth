@@ -1,7 +1,16 @@
-import '../styles/globals.css'
+import { Provider } from "next-auth/client";
+import { AppProps } from "next/app";
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
-}
+import { CookiesProvider } from "react-cookie";
 
-export default MyApp
+const App = ({ Component, pageProps }) => {
+  return (
+      <Provider session={pageProps.session}>
+        <CookiesProvider>
+          <Component {...pageProps} />
+        </CookiesProvider>
+      </Provider>
+  );
+};
+
+export default App;

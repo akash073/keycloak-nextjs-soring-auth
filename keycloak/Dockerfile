@@ -14,7 +14,7 @@ FROM quay.io/keycloak/keycloak:13.0.0
 
 #COPY --from=build /home/app/target/PrivacyIDEA-Provider.jar /opt/jboss/keycloak/standalone/deployments/demo.jar
 #COPY --from=build /home/app/src/main/resources/theme-resources/templates/privacyIDEA.ftl /opt/jboss/keycloak/themes/base/login/
-#COPY --from=build /tmp/realm.json /tmp/realm.json
+COPY --from=build /tmp/realm.json /tmp/realm.json
 
 ENV KEYCLOAK_USER admin
 ENV KEYCLOAK_PASSWORD admin

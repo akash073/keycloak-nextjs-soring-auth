@@ -11,6 +11,6 @@ sudo docker build -t my-keycloak .
  
 sudo docker run -dp 8000:8080 my-keycloak
 
-3. To stop the docker image
+3. To stop the docker container
 
 sudo docker stop $(sudo docker ps -q --filter ancestor='my-keycloak' )
