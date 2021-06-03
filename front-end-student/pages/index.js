@@ -74,7 +74,7 @@ export default function Home() {
 
 
 
-      <button  onClick={getStudentData}>Get student data</button>
+     {/* <button  onClick={getStudentData}>Get student data</button>*/}
     </>}
 
 
