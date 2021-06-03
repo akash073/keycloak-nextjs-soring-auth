@@ -44,7 +44,7 @@ export const Navbar = () => {
         <>
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <Link href="/">
-                <a className="navbar-brand" href="#">Single Sign On </a>
+                <a className="navbar-brand" href="#">Teacher SSO </a>
                 </Link>
                 <button className="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
