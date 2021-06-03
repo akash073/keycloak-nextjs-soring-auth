@@ -2,7 +2,6 @@ import Link from "next/link";
 import {signIn, signOut, useSession} from "next-auth/client";
 import axios from "axios";
 import getConfig from 'next/config'
-import {useEffect} from "react";
 const { serverRuntimeConfig, publicRuntimeConfig } = getConfig()
 
 export const Navbar = () => {
@@ -16,11 +15,11 @@ export const Navbar = () => {
         const refresh_token = session.refreshToken;
         console.log('logOut',token);
         console.log('logOut',refresh_token);
-        const logOutUrl = `http://127.0.0.1:8000/auth/realms/BANBEIS/protocol/openid-connect/logout`
+        const logOutUrl = `http://localhost:8000/auth/realms/BANBEIS/protocol/openid-connect/logout`
 
 
         const params = new URLSearchParams()
-        params.append('client_id', 'next-client')
+        params.append('client_id', 'teacher-client')
         params.append('refresh_token', refresh_token)
 
         const config = {

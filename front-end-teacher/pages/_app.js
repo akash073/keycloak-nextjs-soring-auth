@@ -1,7 +1,28 @@
-import '../styles/globals.css'
+import { Provider } from "next-auth/client";
+import { AppProps } from "next/app";
+import 'bootstrap/dist/css/bootstrap.min.css'
+import Head from 'next/head';
+import { CookiesProvider } from "react-cookie";
+import {Navbar} from "../components/Navbar";
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
-}
+const App = ({ Component, pageProps }) => {
+  return (
+      <Provider session={pageProps.session}>
+        <CookiesProvider>
 
-export default MyApp
+          <head>
+
+          </head>
+         <Navbar />
+
+
+          <body>
+          <Component {...pageProps} />
+          </body>
+
+        </CookiesProvider>
+      </Provider>
+  );
+};
+
+export default App;

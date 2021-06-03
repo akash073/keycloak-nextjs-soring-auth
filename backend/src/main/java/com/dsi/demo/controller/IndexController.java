@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = {"/","index"}, produces = MediaType.APPLICATION_JSON_VALUE)
 public class IndexController {
 
     @GetMapping("/")

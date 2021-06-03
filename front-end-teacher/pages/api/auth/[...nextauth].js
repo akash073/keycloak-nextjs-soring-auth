@@ -13,14 +13,12 @@ const options = {
             accessTokenUrl: `${process.env.KEYCLOAK_BASE_URL}/token`,
             requestTokenUrl: `${process.env.KEYCLOAK_BASE_URL}/auth`,
             authorizationUrl: `${process.env.KEYCLOAK_BASE_URL}/auth?response_type=code&prompt=consent`,
-            clientId: "next-client",
+            clientId: "teacher-client",
             clientSecret: process.env.KEYCLOAK_CLIENT_SECRET,
             profileUrl: `${process.env.KEYCLOAK_BASE_URL}/userinfo`,
             profile: (profile) => ({ ...profile, id: profile.sub }),
-            //state: false, // Disable the state feature
         }
     ],
-    debug: true,
     jwt: {
         encrypt: false
     },

@@ -1,6 +1,9 @@
 package com.dsi.demo.config;
 
 
+
+import com.dsi.demo.auth.CustomAccessDeniedHandler;
+import com.dsi.demo.auth.CustomAuthenticationEntryPoint;
 import org.keycloak.adapters.KeycloakConfigResolver;
 import org.keycloak.adapters.springboot.KeycloakSpringBootProperties;
 import org.keycloak.adapters.springsecurity.KeycloakSecurityComponents;
@@ -43,20 +46,19 @@ import org.springframework.security.web.session.HttpSessionEventPublisher;
 @ComponentScan(basePackageClasses = KeycloakSecurityComponents.class)
 public class KeycloakSecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 
-    @Autowired
-    CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
-    @Autowired
-    CustomAccessDeniedHandler customAccessDeniedHandler;
-
     private final KeycloakClientRequestFactory keycloakClientRequestFactory;
 
 
     public KeycloakSecurityConfig(KeycloakClientRequestFactory keycloakClientRequestFactory) {
         this.keycloakClientRequestFactory = keycloakClientRequestFactory;
-
-        // to use principal and authentication together with @async
         SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_INHERITABLETHREADLOCAL);
     }
+
+    @Bean
+    public AuthenticationEntryPoint authenticationEntryPoint(){
+        return new CustomAuthenticationEntryPoint();
+    }
+
     @Bean
     @Primary
     public KeycloakConfigResolver keycloakConfigResolver(KeycloakSpringBootProperties properties) {
@@ -76,43 +78,31 @@ public class KeycloakSecurityConfig extends KeycloakWebSecurityConfigurerAdapter
         auth.authenticationProvider(keycloakAuthenticationProvider);
     }
 
-    /**
-     * Use NullAuthenticatedSessionStrategy for bearer-only tokens. Otherwise, use
-     * RegisterSessionAuthenticationStrategy.
-     */
     @Bean
     @Override
     protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {
         return new NullAuthenticatedSessionStrategy();
     }
 
-    /**
-     * Secure appropriate endpoints
-     */
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         super.configure(http);
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry expressionInterceptUrlRegistry =
-                http .csrf().disable()
-
-                        .cors()
+                http.cors()
                 .and()
-
-
+                .csrf().disable() //
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) //
                 .and() //
-                 .exceptionHandling()
-                        .authenticationEntryPoint(customAuthenticationEntryPoint)
-                        .accessDeniedHandler(customAccessDeniedHandler)
-            .and()
-                .authorizeRequests() .antMatchers( "/favicon.ico").permitAll();
+                .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler())
+                        .and()
+                .authorizeRequests().antMatchers( "/favicon.ico").permitAll();
 
-        /*expressionInterceptUrlRegistry = expressionInterceptUrlRegistry
-                .antMatchers("/iam/accounts/**")
+       /* expressionInterceptUrlRegistry = expressionInterceptUrlRegistry
+                .antMatchers("/teachers/**")
                 .hasAnyRole("MANAGER","ACTOR");*/
-       expressionInterceptUrlRegistry = expressionInterceptUrlRegistry.antMatchers("/student/*").hasRole("STUDENT");
-       expressionInterceptUrlRegistry = expressionInterceptUrlRegistry.antMatchers("/teacher/*").hasRole("TEACHER");
+      //  expressionInterceptUrlRegistry = expressionInterceptUrlRegistry.antMatchers("/iam/accounts/actor/*").hasRole("ACTOR");
 
         expressionInterceptUrlRegistry.anyRequest().authenticated();
     }
@@ -153,10 +143,6 @@ public class KeycloakSecurityConfig extends KeycloakWebSecurityConfigurerAdapter
     }
 
     @Bean
-    public AuthenticationEntryPoint authenticationEntryPoint(){
-        return new CustomAuthenticationEntryPoint();
-    }
-    @Bean
     @Override
     @ConditionalOnMissingBean(HttpSessionManager.class)
     protected HttpSessionManager httpSessionManager() {
@@ -191,7 +177,7 @@ public class KeycloakSecurityConfig extends KeycloakWebSecurityConfigurerAdapter
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/keycloak/**", "/v2/api-docs", "/configuration/ui", "/swagger-resources",
+        web.ignoring().antMatchers("/index/**", "/v2/api-docs", "/configuration/ui", "/swagger-resources",
                 "/configuration/security", "/swagger-ui.html", "/webjars/**","/swagger-ui/index.html","/v3/api-docs/**","/swagger-ui/**");
     }
 
