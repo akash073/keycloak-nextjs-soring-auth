@@ -16,7 +16,7 @@ export const Navbar = () => {
         const refresh_token = session.refreshToken;
         console.log('logOut',token);
         console.log('logOut',refresh_token);
-        const logOutUrl = `http://127.0.0.1:8000/auth/realms/BANBEIS/protocol/openid-connect/logout`
+        const logOutUrl = `http://localhost:8000/auth/realms/BANBEIS/protocol/openid-connect/logout`
 
 
         const params = new URLSearchParams()
