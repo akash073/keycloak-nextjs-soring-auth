@@ -1,5 +1,5 @@
 {
-  "name": "front-end-one",
+  "name": "front-end-student",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,16 +8,18 @@
     "start": "next start"
   },
   "dependencies": {
-    "next": "10.2.3",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-
-    "next-auth": "^3.24.0",
-
+    "@prisma/client": "^2.16.1",
     "axios": "^0.21.1",
-
+    "bootstrap": "^4.6.0",
     "cookie": "^0.4.1",
     "js-cookie": "^2.2.1",
-    "react-cookie": "^4.0.3"
+    "next": "10.2.3",
+    "next-auth": "^3.24.0",
+    "react": "17.0.2",
+    "react-bootstrap": "^1.6.0",
+    "react-cookie": "^4.0.3",
+    "react-dom": "17.0.2",
+    "bootstrap": "^4.5.0",
+    "react-bootstrap": "^1.0.1"
   }
 }

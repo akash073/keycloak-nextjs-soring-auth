@@ -1,12 +1,21 @@
 import axios from "axios";
 import Link from "next/link";
 import { signIn, signOut, useSession,getSession } from 'next-auth/client'
+import getConfig from 'next/config'
+import {useEffect} from "react";
+// Only holds serverRuntimeConfig and publicRuntimeConfig
+const { serverRuntimeConfig, publicRuntimeConfig } = getConfig()
 
 const BASE_URL_STUDENT = "http://localhost:8080/student/"
 
 export default function Home() {
 
   const [ session, loading ] = useSession();
+
+  useEffect(()=>{
+    var data = JSON.stringify(session);
+    console.log('Data',data)
+  })
 
   const logOut= async (e)=>{
     e.preventDefault();
@@ -15,7 +24,7 @@ export default function Home() {
     const refresh_token = session.refreshToken;
     console.log('logOut',token);
     console.log('logOut',refresh_token);
-    const logOutUrl = `http://localhost:8000/auth/realms/BANBEIS/protocol/openid-connect/logout`
+    const logOutUrl = `${serverRuntimeConfig.keycloak_base_url}/logout`
 
 
     const params = new URLSearchParams()
@@ -35,6 +44,7 @@ export default function Home() {
         })
         .catch((err) => {
           console.log(err);
+          signOut({ callbackUrl: `/` })
         })
   }
 
@@ -69,6 +79,8 @@ export default function Home() {
   }
 
   return <>
+
+
     {!session &&
     <>
 
@@ -81,7 +93,13 @@ export default function Home() {
     {session &&
 
     <>
-      Signed in as {session.user.email} {JSON.stringify(session)}<br/>
+      Signed in as {session.user.email}
+
+      <br/>
+
+      User Name = {session.user.name}
+
+      <br/>
 
       <button onClick={logOut}>Sign out</button>
 
@@ -90,8 +108,5 @@ export default function Home() {
 
 
 
-    <Link href="/protected">
-      <a>Protected</a>
-    </Link>
   </>
 }

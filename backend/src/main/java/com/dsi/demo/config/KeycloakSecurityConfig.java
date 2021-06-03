@@ -43,6 +43,11 @@ import org.springframework.security.web.session.HttpSessionEventPublisher;
 @ComponentScan(basePackageClasses = KeycloakSecurityComponents.class)
 public class KeycloakSecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 
+    @Autowired
+    CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+    @Autowired
+    CustomAccessDeniedHandler customAccessDeniedHandler;
+
     private final KeycloakClientRequestFactory keycloakClientRequestFactory;
 
 
@@ -89,13 +94,17 @@ public class KeycloakSecurityConfig extends KeycloakWebSecurityConfigurerAdapter
 
         super.configure(http);
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry expressionInterceptUrlRegistry =
-                http.cors()
+                http .csrf().disable()
+
+                        .cors()
                 .and()
 
-                .csrf().disable() //
+
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) //
                 .and() //
-                 .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler())
+                 .exceptionHandling()
+                        .authenticationEntryPoint(customAuthenticationEntryPoint)
+                        .accessDeniedHandler(customAccessDeniedHandler)
             .and()
                 .authorizeRequests() .antMatchers( "/favicon.ico").permitAll();
 

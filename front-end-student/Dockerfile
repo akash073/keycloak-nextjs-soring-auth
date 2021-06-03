@@ -4,6 +4,7 @@ FROM node:alpine AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY . .
+COPY .env.local .env.local
 RUN yarn install --frozen-lockfile
 
 # Rebuild the source code only when needed

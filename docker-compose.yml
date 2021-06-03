@@ -2,6 +2,21 @@ version: '3.7'
 
 # Define services
 services:
+
+  keycloak-auth:
+    # Configuration for building the docker image for the backend service
+    build:
+      context: keycloak # Use an image built from the specified dockerfile in the `polling-app-server` directory.
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8080" # Forward the exposed port 8080 on the container to port 8000 on the host machine
+    restart: always
+    networks: # Networks to join (Services on the same network can communicate with each other using their name)
+      - backend
+      - front-end-student
+      - front-end-teacher
+    container_name: keycloak-auth
+
   # App backend service
   app-server:
     # Configuration for building the docker image for the backend service
@@ -21,18 +36,7 @@ services:
       - front-end-student
       - front-end-teacher
 
-  keycloak-auth:
-    # Configuration for building the docker image for the backend service
-    build:
-      context: keycloak # Use an image built from the specified dockerfile in the `polling-app-server` directory.
-      dockerfile: Dockerfile
-    ports:
-      - "8000:8080" # Forward the exposed port 8080 on the container to port 8000 on the host machine
-    restart: always
-    networks: # Networks to join (Services on the same network can communicate with each other using their name)
-      - backend
-      - front-end-student
-      - front-end-teacher
+
 
   # App frontend service
   app-client-next-student:
@@ -47,7 +51,10 @@ services:
       - app-server
       - keycloak-auth
     networks: # Networks to join (Services on the same network can communicate with each other using their name)
-      - front-end-student
+      - backend
+      - keycloak-auth
+      #- front-end-student
+      - front-end-teacher
 
    # App frontend service
   app-client-next-teacher:
@@ -62,6 +69,9 @@ services:
       - app-server # This service depends on mysql. Start that first.
       - keycloak-auth # This service depends on mysql. Start that first.
     networks: # Networks to join (Services on the same network can communicate with each other using their name)
+      - backend
+      - keycloak-auth
+      #- front-end-student
       - front-end-teacher
 
 # Volumes
@@ -71,5 +81,6 @@ volumes:
 # Networks to be created to facilitate communication between containers
 networks:
   backend:
+  keycloak-auth:
   front-end-student: 
   front-end-teacher: 
