@@ -17,36 +17,7 @@ export default function Home() {
     console.log('Data',data)
   })
 
-  const logOut= async (e)=>{
-    e.preventDefault();
 
-    const token = session.accessToken
-    const refresh_token = session.refreshToken;
-    console.log('logOut',token);
-    console.log('logOut',refresh_token);
-    const logOutUrl = `${serverRuntimeConfig.keycloak_base_url}/logout`
-
-
-    const params = new URLSearchParams()
-    params.append('client_id', 'next-client')
-    params.append('refresh_token', refresh_token)
-
-    const config = {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
-    }
-
-    await axios.post(logOutUrl, params, config)
-        .then((result) => {
-          console.log(result);
-          signOut({ callbackUrl: `/` })
-        })
-        .catch((err) => {
-          console.log(err);
-          signOut({ callbackUrl: `/` })
-        })
-  }
 
 
   const getStudentData = async ()=>{
@@ -85,8 +56,8 @@ export default function Home() {
     <>
 
       <h2>Student sign in</h2>
-      <br/>
-      <button onClick={() => signIn()}>Sign in</button>
+      {/*<br/>
+      <button onClick={() => signIn()}>Sign in</button>*/}
     </>
 
     }
@@ -101,9 +72,9 @@ export default function Home() {
 
       <br/>
 
-      <button onClick={logOut}>Sign out</button>
 
-      <button onClick={getStudentData}>Get student data</button>
+
+      <button  onClick={getStudentData}>Get student data</button>
     </>}
 
 
