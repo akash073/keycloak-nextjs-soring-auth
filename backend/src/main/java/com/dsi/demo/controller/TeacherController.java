@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "teacher", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "teachers", produces = MediaType.APPLICATION_JSON_VALUE)
 public class TeacherController {
 
     @GetMapping("/")

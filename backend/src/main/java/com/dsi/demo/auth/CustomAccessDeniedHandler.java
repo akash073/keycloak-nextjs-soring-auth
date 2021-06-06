@@ -5,8 +5,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.web.access.AccessDeniedHandler;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +15,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+/*
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
     @Override
@@ -34,4 +33,4 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
         }.getType(), response.getWriter());
     }
 
-}
+}*/
