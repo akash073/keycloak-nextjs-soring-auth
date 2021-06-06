@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.security.DeclareRoles;
-@CrossOrigin(origins = "*")
+
 @RestController
 @RequestMapping(path = "students", produces = MediaType.APPLICATION_JSON_VALUE)
 public class StudentController {

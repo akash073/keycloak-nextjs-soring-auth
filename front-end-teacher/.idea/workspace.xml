@@ -2,30 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b4d1e2b7-1a4f-4324-bb27-f7389350ffd8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/com/dsi/demo/auth/CustomAuthenticationEntryPoint.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/Navbar.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pages/api/auth/[...nextauth].js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pages/protected.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/dsi/demo/config/CORSFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/dsi/demo/config/CORSFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/dsi/demo/config/CustomAccessDeniedHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/dsi/demo/auth/CustomAccessDeniedHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/dsi/demo/config/CustomAuthenticationEntryPoint.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/dsi/demo/config/KeycloakSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/dsi/demo/config/KeycloakSecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/dsi/demo/controller/IndexController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/dsi/demo/controller/IndexController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/dsi/demo/controller/StudentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/dsi/demo/controller/StudentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/dsi/demo/controller/TeacherController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/dsi/demo/controller/TeacherController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/dsi/demo/exception/ExceptionHandlers.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/dsi/demo/exception/ExceptionHandlers.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end-student/components/Navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end-student/components/Navbar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end-student/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end-student/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end-student/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end-student/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end-student/pages/api/auth/[...nextauth].js" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end-student/pages/api/auth/[...nextauth].js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end-student/pages/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end-student/pages/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env.local" beforeDir="false" afterPath="$PROJECT_DIR$/.env.local" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/_app.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/_app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,33 +61,62 @@
       <workItem from="1622639436593" duration="3006000" />
       <workItem from="1622694752986" duration="13000" />
       <workItem from="1622701211476" duration="438000" />
-      <workItem from="1622701937921" duration="1962000" />
+      <workItem from="1622701937921" duration="4004000" />
     </task>
+    <task id="LOCAL-00001" summary="Teacher added with logout and next client">
+      <created>1622703964558</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1622703964558</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Teacher added with logout and next client">
+      <created>1622704223373</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1622704223373</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="Teacher added with logout and next client" />
+    <option name="LAST_COMMIT_MESSAGE" value="Teacher added with logout and next client" />
   </component>
   <component name="WindowStateProjectService">
     <state x="457" y="192" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1622701431435">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
     <state x="457" y="192" key="#com.intellij.execution.impl.EditConfigurationsDialog/65.24.1855.1056@65.24.1855.1056" timestamp="1622701431435" />
-    <state width="1827" height="275" key="GridCell.Tab.0.bottom" timestamp="1622703767054">
+    <state x="427" y="64" key="CommitChangelistDialog2" timestamp="1622704223326">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state width="1827" height="275" key="GridCell.Tab.0.bottom/65.24.1855.1056@65.24.1855.1056" timestamp="1622703767054" />
-    <state width="1827" height="275" key="GridCell.Tab.0.center" timestamp="1622703767054">
+    <state x="427" y="64" key="CommitChangelistDialog2/65.24.1855.1056@65.24.1855.1056" timestamp="1622704223326" />
+    <state width="1827" height="275" key="GridCell.Tab.0.bottom" timestamp="1622711988537">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state width="1827" height="275" key="GridCell.Tab.0.center/65.24.1855.1056@65.24.1855.1056" timestamp="1622703767054" />
-    <state width="1827" height="275" key="GridCell.Tab.0.left" timestamp="1622703767054">
+    <state width="1827" height="275" key="GridCell.Tab.0.bottom/65.24.1855.1056@65.24.1855.1056" timestamp="1622711988537" />
+    <state width="1827" height="275" key="GridCell.Tab.0.center" timestamp="1622711988537">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state width="1827" height="275" key="GridCell.Tab.0.left/65.24.1855.1056@65.24.1855.1056" timestamp="1622703767054" />
-    <state width="1827" height="275" key="GridCell.Tab.0.right" timestamp="1622703767054">
+    <state width="1827" height="275" key="GridCell.Tab.0.center/65.24.1855.1056@65.24.1855.1056" timestamp="1622711988537" />
+    <state width="1827" height="275" key="GridCell.Tab.0.left" timestamp="1622711988537">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state width="1827" height="275" key="GridCell.Tab.0.right/65.24.1855.1056@65.24.1855.1056" timestamp="1622703767054" />
+    <state width="1827" height="275" key="GridCell.Tab.0.left/65.24.1855.1056@65.24.1855.1056" timestamp="1622711988537" />
+    <state width="1827" height="275" key="GridCell.Tab.0.right" timestamp="1622711988537">
+      <screen x="65" y="24" width="1855" height="1056" />
+    </state>
+    <state width="1827" height="275" key="GridCell.Tab.0.right/65.24.1855.1056@65.24.1855.1056" timestamp="1622711988537" />
+    <state x="562" y="217" width="860" height="642" key="find.popup" timestamp="1622704845937">
+      <screen x="65" y="24" width="1855" height="1056" />
+    </state>
+    <state x="562" y="217" width="860" height="642" key="find.popup/65.24.1855.1056@65.24.1855.1056" timestamp="1622704845937" />
   </component>
 </project>

@@ -6,7 +6,7 @@ import {useEffect} from "react";
 // Only holds serverRuntimeConfig and publicRuntimeConfig
 const { serverRuntimeConfig, publicRuntimeConfig } = getConfig()
 
-const BASE_URL_STUDENT = "http://localhost:8080/"
+const BASE_URL_STUDENT = "http://localhost:8080/students/"
 
 export default function Home() {
 
@@ -74,7 +74,7 @@ export default function Home() {
 
 
 
-     {/* <button  onClick={getStudentData}>Get student data</button>*/}
+      <button  onClick={getStudentData}>Get student data</button>
     </>}
 
 
