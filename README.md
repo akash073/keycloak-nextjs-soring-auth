@@ -34,6 +34,9 @@ sudo docker run --name key -d -p 8000:8080 -e KEYCLOAK_USER=admin -e KEYCLOAK_PA
 
 
 sudo docker exec -it keycloak bash
+
 cd /opt/jboss/keycloak/bin/
+
 ./kcadm.sh config credentials --server http://localhost:8080/auth --realm master --user admin  --password admin
+
 ./kcadm.sh update realms/master -s sslRequired=NONE
