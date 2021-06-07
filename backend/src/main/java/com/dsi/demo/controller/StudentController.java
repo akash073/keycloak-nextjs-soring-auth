@@ -20,7 +20,7 @@ public class StudentController {
 
     Logger logger = LoggerFactory.getLogger(StudentController.class);
     @GetMapping("/")
-    @RolesAllowed("ROLE_STUDENTa")
+   // @RolesAllowed("ROLE_STUDENTa")
     public String hello(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
