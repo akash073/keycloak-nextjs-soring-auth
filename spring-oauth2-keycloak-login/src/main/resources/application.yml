@@ -1,0 +1,15 @@
+server:
+  port: 8888
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: 55042005370-1t6kk0dqa43jin31meq4cvdt478ssfbi.apps.googleusercontent.com
+            clientSecret: Tx5s-_VjjBdcEDbVmGslUIgs
+            scope:
+              - openid
+              - email
+              - profile

@@ -1,0 +1,9 @@
+security:
+  oauth2:
+    client:
+      client-id: clientId
+      client-secret: very-strong-secret
+
+
+server:
+  port: 8080
