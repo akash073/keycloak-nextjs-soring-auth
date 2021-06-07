@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 
 @RestController
 @RequestMapping(path = "students", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -19,7 +20,7 @@ public class StudentController {
 
     Logger logger = LoggerFactory.getLogger(StudentController.class);
     @GetMapping("/")
-   // @Secured("ROLE_STUDENT")
+    @RolesAllowed("ROLE_STUDENTa")
     public String hello(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();

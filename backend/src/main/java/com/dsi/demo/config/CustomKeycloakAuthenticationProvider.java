@@ -6,6 +6,7 @@ import org.keycloak.adapters.springsecurity.account.KeycloakRole;
 import org.keycloak.adapters.springsecurity.account.SimpleKeycloakAccount;
 import org.keycloak.adapters.springsecurity.authentication.KeycloakAuthenticationProvider;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
+import org.keycloak.representations.AccessToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
@@ -16,7 +17,12 @@ import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMap
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
+/*
+* For details
+* https://stackoverflow.com/questions/60147364/using-both-realm-roles-and-ressource-roles-with-keycloak-springsecurity
+*/
 public class CustomKeycloakAuthenticationProvider extends KeycloakAuthenticationProvider {
 
     Logger logger = LoggerFactory.getLogger(CustomKeycloakAuthenticationProvider.class);
@@ -33,7 +39,7 @@ public class CustomKeycloakAuthenticationProvider extends KeycloakAuthentication
         List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
 
         for (String role : token.getAccount().getRoles()) {
-            grantedAuthorities.add(new KeycloakRole(role));
+            grantedAuthorities.add(new KeycloakRole(role.toUpperCase()));
         }
 
         logger.error("CustomKeycloakAuthenticationProvider: authenticate");
@@ -41,10 +47,17 @@ public class CustomKeycloakAuthenticationProvider extends KeycloakAuthentication
 
        // KeycloakSecurityContext keycloakSecurityContext = token.getAccount().getKeycloakSecurityContext();
 
+        Map<String, AccessToken.Access> resourceAccess =  token.getAccount().getKeycloakSecurityContext().getToken().getResourceAccess();
 
-     /*   for (String role : token.getAccount().getKeycloakSecurityContext().getToken().getResourceAccess("CustomApplication").getRoles()) {
-            grantedAuthorities.add(new KeycloakRole(role));
-        }*/
+        for(String key : resourceAccess.keySet()) {
+            System.out.println(key);
+
+            for (String role : token.getAccount().getKeycloakSecurityContext().getToken().getResourceAccess(key).getRoles()) {
+                grantedAuthorities.add(new KeycloakRole(role.toUpperCase()));
+            }
+        }
+
+
         return new KeycloakAuthenticationToken(token.getAccount(), token.isInteractive(), mapAuthorities(grantedAuthorities));
     }
 
