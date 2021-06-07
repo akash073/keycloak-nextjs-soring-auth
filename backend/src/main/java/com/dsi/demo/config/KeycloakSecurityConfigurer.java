@@ -56,7 +56,7 @@ public class KeycloakSecurityConfigurer extends KeycloakWebSecurityConfigurerAda
     http.cors().and()
             .csrf().disable()
         .authorizeRequests()
-        //.antMatchers("/students/*").hasRole("STUDENT")
+       // .antMatchers("/students/*").hasAuthority("STUDENT")
         //.antMatchers("/user/*").hasRole("USER")
         .anyRequest().permitAll();
   }

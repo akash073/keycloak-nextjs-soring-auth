@@ -2,6 +2,7 @@ package com.dsi.demo.config;
 
 import com.dsi.demo.controller.StudentController;
 import org.keycloak.KeycloakSecurityContext;
+import org.keycloak.adapters.spi.KeycloakAccount;
 import org.keycloak.adapters.springsecurity.account.KeycloakRole;
 import org.keycloak.adapters.springsecurity.account.SimpleKeycloakAccount;
 import org.keycloak.adapters.springsecurity.authentication.KeycloakAuthenticationProvider;
@@ -57,8 +58,13 @@ public class CustomKeycloakAuthenticationProvider extends KeycloakAuthentication
             }
         }
 
+        Collection<? extends GrantedAuthority> authorities = mapAuthorities(grantedAuthorities);
 
-        return new KeycloakAuthenticationToken(token.getAccount(), token.isInteractive(), mapAuthorities(grantedAuthorities));
+        KeycloakAccount keycloakAccount = token.getAccount();
+
+
+
+        return new KeycloakAuthenticationToken(keycloakAccount, token.isInteractive(), authorities);
     }
 
     private Collection<? extends GrantedAuthority> mapAuthorities(
