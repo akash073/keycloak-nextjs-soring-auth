@@ -1,5 +1,7 @@
 package com.dsi.demo.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
@@ -15,11 +17,13 @@ import javax.annotation.security.DeclareRoles;
 @RequestMapping(path = "students", produces = MediaType.APPLICATION_JSON_VALUE)
 public class StudentController {
 
+    Logger logger = LoggerFactory.getLogger(StudentController.class);
     @GetMapping("/")
-    @Secured("ROLE_STUDENT")
+   // @Secured("ROLE_STUDENT")
     public String hello(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
+        logger.info(currentPrincipalName);
         return "Hello student";
     }
 }
