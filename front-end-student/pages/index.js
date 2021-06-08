@@ -14,7 +14,7 @@ export default function Home() {
 
   useEffect(()=>{
     var data = JSON.stringify(session);
-    console.log('Data',data)
+    console.log('Data',session?.accessToken)
   })
 
 
