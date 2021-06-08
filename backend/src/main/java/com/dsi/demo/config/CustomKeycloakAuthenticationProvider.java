@@ -1,6 +1,8 @@
 package com.dsi.demo.config;
 
+import com.dsi.demo.SampleService;
 import com.dsi.demo.controller.StudentController;
+import org.keycloak.KeycloakPrincipal;
 import org.keycloak.KeycloakSecurityContext;
 import org.keycloak.adapters.spi.KeycloakAccount;
 import org.keycloak.adapters.springsecurity.account.KeycloakRole;
@@ -14,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -29,9 +32,15 @@ public class CustomKeycloakAuthenticationProvider extends KeycloakAuthentication
     Logger logger = LoggerFactory.getLogger(CustomKeycloakAuthenticationProvider.class);
 
     private GrantedAuthoritiesMapper grantedAuthoritiesMapper;
+    private SampleService sampleService;
+
+    public CustomKeycloakAuthenticationProvider(SampleService sampleService){
+        this.sampleService = sampleService;
+    }
 
     public void setGrantedAuthoritiesMapper(GrantedAuthoritiesMapper grantedAuthoritiesMapper) {
         this.grantedAuthoritiesMapper = grantedAuthoritiesMapper;
+
     }
 
     @Override
@@ -58,10 +67,18 @@ public class CustomKeycloakAuthenticationProvider extends KeycloakAuthentication
             }
         }
 
+        //Authentication kauthentication = SecurityContextHolder.getContext().getAuthentication();
+
+        KeycloakPrincipal principal = (KeycloakPrincipal)authentication.getPrincipal();
+        if (principal != null) {
+            //user has a valid session, we can assign role on the fly like this
+            principal.getKeycloakSecurityContext().getToken().setOtherClaims("sampleService",sampleService.getUserSecret());
+
+        }
+
         Collection<? extends GrantedAuthority> authorities = mapAuthorities(grantedAuthorities);
 
         KeycloakAccount keycloakAccount = token.getAccount();
-
 
 
         return new KeycloakAuthenticationToken(keycloakAccount, token.isInteractive(), authorities);

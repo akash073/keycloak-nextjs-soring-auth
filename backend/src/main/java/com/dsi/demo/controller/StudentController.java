@@ -1,5 +1,6 @@
 package com.dsi.demo.controller;
 
+import org.keycloak.KeycloakPrincipal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -31,6 +33,10 @@ public class StudentController {
 
         List<SimpleGrantedAuthority> grantedAuthorities = authentication.getAuthorities().stream().map(authority -> new SimpleGrantedAuthority(authority.getAuthority())).collect(Collectors.toList()); // (1)
 
+        KeycloakPrincipal principal = (KeycloakPrincipal)authentication.getPrincipal();
+        System.out.println(principal);
+
+        Map<String, Object> customProperty = principal.getKeycloakSecurityContext().getToken().getOtherClaims();
 
         logger.info(currentPrincipalName);
         return "Hello student";

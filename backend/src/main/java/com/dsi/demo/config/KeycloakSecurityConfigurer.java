@@ -1,5 +1,6 @@
 package com.dsi.demo.config;
 
+import com.dsi.demo.SampleService;
 import org.keycloak.adapters.KeycloakConfigResolver;
 import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
 import org.keycloak.adapters.springsecurity.KeycloakSecurityComponents;
@@ -26,6 +27,8 @@ import org.springframework.security.web.authentication.session.SessionAuthentica
 @ComponentScan(basePackageClasses = KeycloakSecurityComponents.class)
 public class KeycloakSecurityConfigurer extends KeycloakWebSecurityConfigurerAdapter {
 
+  @Autowired
+  SampleService sampleService;
 
   @Autowired
   public void configureGlobal(AuthenticationManagerBuilder auth) {
@@ -34,8 +37,9 @@ public class KeycloakSecurityConfigurer extends KeycloakWebSecurityConfigurerAda
     auth.authenticationProvider(keycloakAuthenticationProvider);
   }
 
+
   private CustomKeycloakAuthenticationProvider CustomKeycloakAuthenticationProvider() {
-    return new CustomKeycloakAuthenticationProvider();
+    return new CustomKeycloakAuthenticationProvider(sampleService);
   }
 
   @Bean
@@ -56,8 +60,11 @@ public class KeycloakSecurityConfigurer extends KeycloakWebSecurityConfigurerAda
     http.cors().and()
             .csrf().disable()
         .authorizeRequests()
-        .antMatchers("/students/*").hasRole("RELAM_ROLE")
+        .antMatchers("/students/*").hasRole("STUDENT")
         //.antMatchers("/user/*").hasRole("USER")
-        .anyRequest().permitAll();
+        .anyRequest().permitAll()
+
+            .and().addFilterAfter(new CustomAfterFilterSpringSecurity(),KeycloakAuthenticationProcessingFilter.class)
+    ;
   }
 }
