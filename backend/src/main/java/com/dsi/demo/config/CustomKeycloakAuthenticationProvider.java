@@ -26,6 +26,7 @@ import java.util.Map;
 /*
 * For details
 * https://stackoverflow.com/questions/60147364/using-both-realm-roles-and-ressource-roles-with-keycloak-springsecurity
+* https://www.codota.com/code/java/methods/org.keycloak.KeycloakPrincipal/getKeycloakSecurityContext
 */
 public class CustomKeycloakAuthenticationProvider extends KeycloakAuthenticationProvider {
 

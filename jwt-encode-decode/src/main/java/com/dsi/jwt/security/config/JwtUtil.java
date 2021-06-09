@@ -8,6 +8,11 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.security.KeyFactory;
+import java.security.NoSuchAlgorithmException;
+import java.security.PublicKey;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.X509EncodedKeySpec;
 import java.util.*;
 
 @Service
@@ -64,38 +69,102 @@ public class JwtUtil {
 
 	public boolean validateToken(String authToken) {
 		try {
-			Jws<Claims> claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(authToken);
+			Jws<Claims> claims = parseJwt(authToken);
 			return true;
 		} catch (SignatureException | MalformedJwtException | UnsupportedJwtException | IllegalArgumentException ex) {
 			throw new BadCredentialsException("INVALID_CREDENTIALS", ex);
 		} catch (ExpiredJwtException ex) {
 			throw ex;
+		} catch (InvalidKeySpecException e) {
+			throw new BadCredentialsException("INVALID_SPEC", e);
+		} catch (NoSuchAlgorithmException e) {
+			throw new BadCredentialsException("INVALID_ALGO", e);
 		}
 	}
 
-	public String getUsernameFromToken(String token) {
-		Claims claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
-		return claims.getSubject();
+	public String getUsernameFromToken(String token) throws InvalidKeySpecException, NoSuchAlgorithmException {
+		Jws<Claims> claims = parseJwt(token);
+		return claims.getBody().getSubject();
 
 	}
 
-	public List<SimpleGrantedAuthority> getRolesFromToken(String token) {
-		Claims claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
+	public List<SimpleGrantedAuthority> getRolesFromToken(String token) throws InvalidKeySpecException, NoSuchAlgorithmException {
+		Claims claims = parseJwt(token).getBody();
 
-		List<SimpleGrantedAuthority> roles = null;
+		List<SimpleGrantedAuthority> roles = new ArrayList<>();
 
-		Boolean isAdmin = claims.get("isAdmin", Boolean.class);
+
+		Map<String,Object> realmRoles = (HashMap<String,Object>)claims.get("realm_access");
+
+
+		for(String key : realmRoles.keySet()) {
+			System.out.println(key);
+			List<String> roless =  (ArrayList)realmRoles.get("roles");
+			for (String r: roless) {
+				roles.add(new SimpleGrantedAuthority("ROLE_"+ r.toUpperCase()));
+			}
+		}
+
+		Map<String,Object> resourceRoles = (HashMap<String,Object>)claims.get("resource_access");
+
+
+		for(String key : resourceRoles.keySet()) {
+			System.out.println(key);
+			Map<String,Object> roless =  (HashMap<String,Object>)resourceRoles.get(key);
+
+
+			for (String keys : roless.keySet()){
+
+
+
+
+				roles.add(new SimpleGrantedAuthority("ROLE_"+ roless.get("roles").toString().toUpperCase()));
+			}
+
+
+		}
+
+		/*Boolean isAdmin = claims.get("isAdmin", Boolean.class);
 		Boolean isUser = claims.get("isUser", Boolean.class);
 
 		if (isAdmin != null && isAdmin) {
 			roles = Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"));
-		}
-
-		if (isUser != null && isAdmin) {
+		}else {
 			roles = Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
-		}
+		}*/
 		return roles;
 
+	}
+
+
+	/*Public key validation*/
+
+	public  Jws<Claims> parseJwt(String jwtString) throws InvalidKeySpecException, NoSuchAlgorithmException {
+
+		PublicKey publicKey = getPublicKey();
+
+		Jws<Claims> jwt = Jwts.parserBuilder()
+				.setSigningKey(publicKey)
+				.build()
+				.parseClaimsJws(jwtString);
+
+		return jwt;
+	}
+
+	private  PublicKey getPublicKey() throws NoSuchAlgorithmException, InvalidKeySpecException {
+		String rsaPublicKey = "-----BEGIN PUBLIC KEY-----" +
+				"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhoBdZGOEReU79m+6kNy2Uli4ryz7+vAYIkkxrGGXldzzVACxRzrZtP2aMnX69OEdKtw19uVYCAKpM7FQMxOdeQHFpX/P2wLScgNKL30x3ez44PaV3g4qtBPZIvevvFtW6TEoqdzZFh6kYyUigyZMRReu1fBLfeWz2iHxj4K11K4eLBIU8GzJ9YBpcsI4PQUQFs9PX/sFJKNyKPlMTvPpPcn3klbBnPVYSqa2IzOz3WS+62hr7FBBoj3gpLJ7w7+pIkKoIjZBUl4Scdi2o1jV4Y1oT8jH7Ttm5SvmpCvTVlb0/gyrAEbi9IpxcOhTbD7UsTlIDLRy8VM1uJCUoKVk2wIDAQAB"+
+				"-----END PUBLIC KEY-----";
+		rsaPublicKey = rsaPublicKey.replace("-----BEGIN PUBLIC KEY-----", "");
+		rsaPublicKey = rsaPublicKey.replace("-----END PUBLIC KEY-----", "");
+
+
+		System.out.println("rsaPublicKey: " + rsaPublicKey);
+
+		X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.getDecoder().decode(rsaPublicKey));
+		KeyFactory kf = KeyFactory.getInstance("RSA");
+		PublicKey publicKey = kf.generatePublic(keySpec);
+		return publicKey;
 	}
 
 }

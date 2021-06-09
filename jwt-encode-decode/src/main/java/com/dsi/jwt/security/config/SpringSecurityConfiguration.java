@@ -51,8 +51,8 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter{
 	public void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable()
 		.authorizeRequests().antMatchers("/admin").hasRole("ADMIN")
-		.antMatchers("/hellouser").hasAnyRole("USER","ADMIN")
-		.antMatchers("/authenticate", "/register").permitAll().anyRequest().authenticated()
+		.antMatchers("/user").hasAnyRole("USER","ADMIN")
+		.antMatchers("/authenticate", "/register","/index/*").permitAll().anyRequest().authenticated()
 		.and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).
 		and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).
 		and().addFilterBefore(customJwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
@@ -61,7 +61,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter{
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/**", "/v2/api-docs", "/configuration/ui", "/swagger-resources",
+		web.ignoring().antMatchers("/index/**", "/v2/api-docs", "/configuration/ui", "/swagger-resources",
 				"/configuration/security", "/swagger-ui.html", "/webjars/**","/swagger-ui/index.html","/v3/api-docs/**","/swagger-ui/**");
 	}
 

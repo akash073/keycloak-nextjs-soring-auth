@@ -6,12 +6,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 
-@Component
 public interface UserRepository  {
 	DAOUser findByUsername(String username);
 
 }
-
+@Component
 class UserRepositoryImp implements UserRepository{
 
 	@Override
